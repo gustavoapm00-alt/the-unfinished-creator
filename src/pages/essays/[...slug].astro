@@ -1,0 +1,8 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection, render } from 'astro:content';
+export async function getStaticPaths(){ const essays=await getCollection('essays',({data})=>data.status==='published'); return essays.map(essay=>({params:{slug:essay.id},props:{essay}})); }
+const { essay }=Astro.props;
+const { Content }=await render(essay);
+---
+<Base title={essay.data.title} description={essay.data.description}><article class="prose"><div class="meta">Essay {String(essay.data.chapter).padStart(2,'0')} · {essay.data.date.toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'})}</div><h1>{essay.data.title}</h1><p class="lede">{essay.data.description}</p><Content/>{essay.data.sources.length>0&&<section class="sources"><h2>Sources & further reading</h2><ol>{essay.data.sources.map(source=><li><a href={source.url} rel="noopener noreferrer">{source.label}</a></li>)}</ol></section>}</article></Base>

@@ -1,0 +1,6 @@
+---
+import '../styles/global.css';
+const { title = 'The Unfinished Creator', description = 'An independent journal of intelligence, myth, technology and wisdom.' } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="description" content={description}/><link rel="canonical" href={canonical}/><link rel="alternate" type="application/rss+xml" title="The Unfinished Creator RSS" href="/rss.xml"/><title>{title} | The Unfinished Creator</title></head><body><header class="site-header"><a class="brand" href="/">THE UNFINISHED CREATOR</a><nav aria-label="Main navigation"><a href="/">Essays</a><a href="/about">About</a><a href="/rss.xml">RSS</a></nav></header><main><slot/></main><footer>© {new Date().getFullYear()} The Unfinished Creator · Independent inquiry, sourced with care.</footer></body></html>

@@ -1,0 +1,6 @@
+---
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+const essays = (await getCollection('essays', ({data}) => data.status === 'published')).sort((a,b)=>a.data.chapter-b.data.chapter);
+---
+<Base><section class="hero"><div class="eyebrow">A JOURNAL OF INTELLIGENCE & WISDOM</div><h1>We learned to create intelligence.<br/>Did we learn wisdom?</h1><p class="lede">An inquiry across ancient texts, artificial minds, and the unfinished question of what it means to create.</p></section><section class="essays"><div class="eyebrow">THE SERIES</div>{essays.length ? essays.map((essay)=><article class="essay-card"><div class="meta">Essay {String(essay.data.chapter).padStart(2,'0')}</div><h2><a href={`/essays/${essay.id}/`}>{essay.data.title}</a></h2><p>{essay.data.description}</p></article>) : <p>Our first essays are in editorial review. Subscribe via RSS for publication updates.</p>}</section></Base>
